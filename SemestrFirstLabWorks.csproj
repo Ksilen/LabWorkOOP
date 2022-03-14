@@ -46,21 +46,28 @@
   <ItemGroup>
     <Compile Include="Direction.cs" />
     <Compile Include="Bulldozer.cs" />
-    <Compile Include="GetCurrentPos.cs" />
-    <Compile Include="SuperBulldozer.cs" />
-    <Compile Include="AbstractTestObject.cs" />
-    <Compile Include="BordersTestObject.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="FormParking.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="FormParking.Designer.cs">
+      <DependentUpon>FormParking.cs</DependentUpon>
     </Compile>
-    <Compile Include="IDrawObject.cs" />
+    <Compile Include="ITransport.cs" />
+    <Compile Include="Parking.cs" />
+    <Compile Include="SuperBulldozer.cs" />
+    <Compile Include="FormBulldozer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormBulldozer.Designer.cs">
+      <DependentUpon>FormBulldozer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="FormBulldozer.resx">
+      <DependentUpon>FormBulldozer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormParking.resx">
+      <DependentUpon>FormParking.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

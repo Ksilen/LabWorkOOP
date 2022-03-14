@@ -2,7 +2,7 @@
 
 namespace WindowsFormsBulldozer
 {
-    class Bulldozer : IDrawObject
+    class Bulldozer : ITransport
     {
         /// Скорость
         public int Speed { private set; get; }
@@ -23,7 +23,7 @@ namespace WindowsFormsBulldozer
         /// Ширина отрисовки автомобиля
         public readonly int _BulldozerWidth = 85;
         /// Высота отрисовки автомобиля
-        public readonly int _BulldozerHeight = 50;
+        public readonly int _BulldozerHeight = 65;
         /// Признак, что объект переместился
         /// </summary>
         protected bool _makeStep;
@@ -80,7 +80,7 @@ namespace WindowsFormsBulldozer
                     break;
                 //вниз
                 case Direction.Down:
-                    if (_startPosY + _BulldozerHeight + Step < _pictureHeight-Step)
+                    if (_startPosY + _BulldozerHeight + Step < _pictureHeight)
                     {
                         _startPosY += Step;
                         _makeStep = true;
@@ -109,7 +109,8 @@ namespace WindowsFormsBulldozer
             Pen penBlack = new Pen(Color.Black, 3);
             g.DrawArc(pen, _startPosX.Value + 0, _startPosY.Value + 40, 20, 21, -270, 180);//контур гусениц
             g.DrawArc(pen, _startPosX.Value + 60, _startPosY.Value + 40, 20, 21, 270, 180);
-            g.DrawLine(pen, _startPosX.Value + 10, _startPosY.Value + 61, _startPosX.Value + 70, _startPosY.Value + 61);
+            g.DrawLine(pen, _startPosX.Value + 10, _startPosY.Value + 61, _startPosX.Value + 70,
+                _startPosY.Value + 61);
             Brush br = new SolidBrush(BodyColor);
             g.DrawEllipse(penBlack, _startPosX.Value + 3, _startPosY.Value + 43, 15, 15);//колеса гусениц
             g.DrawEllipse(penBlack, _startPosX.Value + 62, _startPosY.Value + 43, 15, 15);
@@ -150,33 +151,8 @@ namespace WindowsFormsBulldozer
             }
             if (_startPosY + _BulldozerHeight > height)
             {
-                _startPosY = height - _BulldozerHeight-20;
+                _startPosY = height - _BulldozerHeight;
             }
-        }
-        //позиция сейчас
-        public GetCurrentPos CurrentPos = new GetCurrentPos();
-        public void GetPosition()
-        {
-            CurrentPos.Left = _startPosX.Value;
-            CurrentPos.Right = _startPosX.Value + _BulldozerWidth;
-            CurrentPos.Top = _startPosY.Value;
-            CurrentPos.Bottom = _startPosY.Value + _BulldozerHeight;
-        }
-        public float GetRight()
-        {
-            return CurrentPos.Right;
-        }
-        public float GetLeft()
-        {
-            return CurrentPos.Left;
-        }
-        public float GetTop()
-        {
-            return CurrentPos.Top;
-        }
-        public float GetBottom()
-        {
-            return CurrentPos.Bottom;
         }
     }
 }

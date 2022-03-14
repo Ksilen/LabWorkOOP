@@ -3,7 +3,7 @@
 namespace WindowsFormsBulldozer
 {
     /// Класс отрисовки гоночного автомобиля
-    class SportCar : Bulldozer
+    class SuperBulldozer : Bulldozer
     {
         /// Дополнительный цвет
         public Color DopColor { private set; get; }
@@ -24,7 +24,7 @@ namespace WindowsFormsBulldozer
         /// <param name="flasher">Признак наличия мигалки(проблескового маячка)</param>
         /// <param name="backBucket">Признак наличия заднего ковша</param>
         /// <param name="sportLine">Признак наличия гоночной полосы</param>
-        public SportCar(int speed, float weight, Color bodyColor, Color dopColor,
+        public SuperBulldozer(int speed, float weight, Color bodyColor, Color dopColor,
         bool frontBucket, bool flasher, bool backBucket, bool sportLine) :
             base(speed, weight, bodyColor, 100, 60)
         {
@@ -106,7 +106,8 @@ namespace WindowsFormsBulldozer
             }
             // рисуем задний ковш
             if (BackBucket)
-            {                g.FillRectangle(dopBrush, _startPosX.Value-5, _startPosY.Value + 25, 20, 10);
+            {
+                g.FillRectangle(dopBrush, _startPosX.Value-5, _startPosY.Value + 25, 20, 10);
                 g.FillRectangle(dopBrush, _startPosX.Value - 15, _startPosY.Value + 30,10 , 20);
                 g.DrawRectangle(pen, _startPosX.Value - 15, _startPosY.Value + 30, 10, 20);
                 g.FillEllipse(dopBrush, _startPosX.Value - 32,_startPosY.Value + 32, 30, 30);
