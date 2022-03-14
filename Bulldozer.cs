@@ -2,127 +2,161 @@
 
 namespace WindowsFormsBulldozer
 {
-    class Bulldozer
+    class Bulldozer : ITransport
     {
         /// Скорость
         public int Speed { private set; get; }
         /// Вес автомобиля
         public float Weight { private set; get; }
+        // Шаг автомобиля
+        public float Step { private set; get; }
         /// Цвет кузова
         public Color BodyColor { private set; get; }
         /// Левая координата отрисовки автомобиля
-        private float? _startPosX = null;
+        protected float? _startPosX = null;
         /// Верхняя кооридната отрисовки автомобиля
-        private float? _startPosY = null;
+        protected float? _startPosY = null;
         /// Ширина окна отрисовк
-        private int? _pictureWidth = null;
+        protected int? _pictureWidth = null;
         /// Высота окна отрисовки
-        private int? _pictureHeight = null;
+        protected int? _pictureHeight = null;
         /// Ширина отрисовки автомобиля
-        protected readonly int _carWidth = 85;
+        public readonly int _BulldozerWidth = 85;
         /// Высота отрисовки автомобиля
-        protected readonly int _carHeight = 50;
-        /// Инициализация свойств
-        public void Init(int speed, float weight, Color bodyColor)
+        public readonly int _BulldozerHeight = 65;
+        /// Признак, что объект переместился
+        /// </summary>
+        protected bool _makeStep;
+        /// Конструкторы
+        public Bulldozer(int speed, float weight, Color bodyColor)
         {
             Speed = speed;
             Weight = weight;
             BodyColor = bodyColor;
+            Step = Speed * 100 / Weight;
         }
-        /// Установка позиции автомобиля
-        public void SetPosition(int x, int y, int width, int height)
+        protected Bulldozer(int speed, float weight, Color bodyColor, int BulldozerWidth, int BulldozerHeight)
         {
-            _startPosX = x;
-            _startPosY = y;
-            _pictureWidth = width;
-            _pictureHeight = height;
-        }
-        /// Смена границ формы отрисовки
-        public void ChangeBorders(int width, int height)
-        {
-            _pictureWidth = width;
-            _pictureHeight = height;
-            if (_startPosX + _carWidth > width)
-            {
-                _startPosX = width - _carWidth;
-            }
-            if (_startPosY + _carHeight > height)
-            {
-                _startPosY = height - _carHeight-20;
-            }
+            Speed = speed;
+            Weight = weight;
+            BodyColor = bodyColor;
+            _BulldozerWidth = BulldozerWidth;
+            _BulldozerHeight = BulldozerHeight;
+            Step = Speed * 100 / Weight;
         }
         /// Изменение направления пермещения
-        public void MoveTransport(Direction direction)
+        public virtual void MoveTransport(Direction direction, int leftIndent = 0, int topIndent = 0)
         {
+            _makeStep = false;
             if (!_pictureWidth.HasValue || !_pictureHeight.HasValue)
             {
                 return;
             }
-            float step = Speed * 100 / Weight;
             switch (direction)
             {
                 // вправо
                 case Direction.Right:
-                    if (_startPosX + _carWidth + step < _pictureWidth)
+                    if (_startPosX + _BulldozerWidth + Step < _pictureWidth)
                     {
-                        _startPosX += step;
+                        _startPosX += Step;
+                        _makeStep = true;
                     }
                     break;
                 //влево
                 case Direction.Left:
-                    if (_startPosX - step > 0)
+                    if (_startPosX - Step > leftIndent)
                     {
-                        _startPosX -= step;
+                        _startPosX -= Step;
+                        _makeStep = true;
                     }
                     break;
                 //вверх
                 case Direction.Up:
-                    if (_startPosY - step > 0)
+                    if (_startPosY - Step > topIndent)
                     {
-                        _startPosY -= step;
+                        _startPosY -= Step;
+                        _makeStep = true;
                     }
                     break;
                 //вниз
                 case Direction.Down:
-                    if (_startPosY + _carHeight + step < _pictureHeight-step)
+                    if (_startPosY + _BulldozerHeight + Step < _pictureHeight)
                     {
-                        _startPosY += step;
+                        _startPosY += Step;
+                        _makeStep = true;
                     }
                     break;
             }
         }
         /// Отрисовка трактора
-        public void DrawTransport(Graphics g)
+        public virtual void DrawTransport(Graphics g)
         {
-            if (!_startPosX.HasValue || !_startPosY.HasValue)
+            if (!_startPosX.HasValue || !_startPosX.HasValue)
             {
                 return;
             }
             Pen pen = new Pen(Color.Black);
             Brush brBrown = new SolidBrush(Color.SaddleBrown);
             Brush brBlue = new SolidBrush(Color.LightBlue);
-            g.FillRectangle(brBrown, _startPosX.Value + 10, _startPosY.Value + 5, 24, 20);//кабина
-            g.DrawRectangle(pen, _startPosX.Value + 10, _startPosY.Value + 5, 24, 20);
-            g.FillRectangle(brBlue, _startPosX.Value + 14, _startPosY.Value + 9, 16, 15);//стекло
-            g.DrawRectangle(pen, _startPosX.Value + 14, _startPosY.Value + 9, 16, 15);
-            g.FillRectangle(brBrown, _startPosX.Value + 10, _startPosY.Value + 25, 60, 20);//корпус
-            g.DrawRectangle(pen, _startPosX.Value + 10, _startPosY.Value + 25, 60, 20);
-            g.FillRectangle(brBrown, _startPosX.Value + 55, _startPosY.Value + 7, 7, 18);//труба
-            g.DrawRectangle(pen, _startPosX.Value + 55, _startPosY.Value + 7, 7, 18);
+            g.FillRectangle(brBrown, _startPosX.Value + 10, _startPosY.Value, 24, 20);//кабина
+            g.DrawRectangle(pen, _startPosX.Value + 10, _startPosY.Value, 24, 20);
+            g.FillRectangle(brBlue, _startPosX.Value + 14, _startPosY.Value + 4, 16, 15);//стекло
+            g.DrawRectangle(pen, _startPosX.Value + 14, _startPosY.Value + 4, 16, 15);
+            g.FillRectangle(brBrown, _startPosX.Value + 10, _startPosY.Value + 20, 60, 20);//корпус
+            g.DrawRectangle(pen, _startPosX.Value + 10, _startPosY.Value + 20, 60, 20);
+            g.FillRectangle(brBrown, _startPosX.Value + 55, _startPosY.Value + 2, 7, 18);//труба
+            g.DrawRectangle(pen, _startPosX.Value + 55, _startPosY.Value + 2, 7, 18);
             Pen penBlack = new Pen(Color.Black, 3);
-            g.DrawArc(pen, _startPosX.Value + 0, _startPosY.Value + 45, 20, 21, -270, 180);//контур гусениц
-            g.DrawArc(pen, _startPosX.Value + 60, _startPosY.Value + 45, 20, 21, 270, 180);
-            g.DrawLine(pen, _startPosX.Value + 10, _startPosY.Value + 66, _startPosX.Value + 70, _startPosY.Value + 66);
+            g.DrawArc(pen, _startPosX.Value + 0, _startPosY.Value + 40, 20, 21, -270, 180);//контур гусениц
+            g.DrawArc(pen, _startPosX.Value + 60, _startPosY.Value + 40, 20, 21, 270, 180);
+            g.DrawLine(pen, _startPosX.Value + 10, _startPosY.Value + 61, _startPosX.Value + 70,
+                _startPosY.Value + 61);
             Brush br = new SolidBrush(BodyColor);
-            g.DrawEllipse(penBlack, _startPosX.Value + 3, _startPosY.Value + 48, 15, 15);//колеса гусениц
-            g.DrawEllipse(penBlack, _startPosX.Value + 62, _startPosY.Value + 48, 15, 15);
-            g.FillEllipse(br, _startPosX.Value + 3, _startPosY.Value + 48, 15, 15);
-            g.FillEllipse(br, _startPosX.Value + 62, _startPosY.Value + 48, 15, 15);
-            g.DrawEllipse(penBlack, _startPosX.Value + 30, _startPosY.Value + 47, 5, 5);
-            g.DrawEllipse(penBlack, _startPosX.Value + 47, _startPosY.Value + 47, 5, 5);
-            g.DrawEllipse(penBlack, _startPosX.Value + 37, _startPosY.Value + 56, 7, 7);
-            g.DrawEllipse(penBlack, _startPosX.Value + 22, _startPosY.Value + 56, 7, 7);
-            g.DrawEllipse(penBlack, _startPosX.Value + 52, _startPosY.Value + 56, 7, 7);
+            g.DrawEllipse(penBlack, _startPosX.Value + 3, _startPosY.Value + 43, 15, 15);//колеса гусениц
+            g.DrawEllipse(penBlack, _startPosX.Value + 62, _startPosY.Value + 43, 15, 15);
+            g.FillEllipse(br, _startPosX.Value + 3, _startPosY.Value + 43, 15, 15);
+            g.FillEllipse(br, _startPosX.Value + 62, _startPosY.Value + 43, 15, 15);
+            g.DrawEllipse(penBlack, _startPosX.Value + 30, _startPosY.Value + 42, 5, 5);
+            g.DrawEllipse(penBlack, _startPosX.Value + 47, _startPosY.Value + 42, 5, 5);
+            g.DrawEllipse(penBlack, _startPosX.Value + 37, _startPosY.Value + 51, 7, 7);
+            g.DrawEllipse(penBlack, _startPosX.Value + 22, _startPosY.Value + 51, 7, 7);
+            g.DrawEllipse(penBlack, _startPosX.Value + 52, _startPosY.Value + 51, 7, 7);
+        }
+        /// Установка позиции трактора
+        public virtual void SetObject(float x, float y, int width, int height)
+        {
+            _startPosX = x;
+            _startPosY = y;
+            _pictureWidth = width;
+            _pictureHeight = height;
+        }
+        /// Изменение направления пермещения
+        public bool MoveObject(Direction direction)
+        {
+            MoveTransport(direction);
+            return _makeStep;
+        }
+        public void DrawObject(Graphics g)
+        {
+            DrawTransport(g);
+        }
+        /// Смена границ формы отрисовки
+        public void ChangeBorders(int width, int height)
+        {
+            _pictureWidth = width;
+            _pictureHeight = height;
+            if (_startPosX + _BulldozerWidth > width)
+            {
+                _startPosX = width - _BulldozerWidth;
+            }
+            if (_startPosY + _BulldozerHeight > height)
+            {
+                _startPosY = height - _BulldozerHeight;
+            }
         }
     }
 }
+
+
+
+
