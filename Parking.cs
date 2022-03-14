@@ -1,51 +1,43 @@
 ﻿using System.Drawing;
+using System.Collections.Generic;
 
 namespace WindowsFormsBulldozer
 {
     /// Параметризованный класс для хранения набора объектов от интерфейса ITransport
     public class Parking<T> where T : class , ITransport
     {
-        /// Массив объектов, которые храним
-        public T[] _places;
+        /// Список объектов, которые храним
+        private readonly List<T> _places;
         /// Ширина окна отрисовки
         private readonly int _pictureWidth;
         /// Высота окна отрисовки
         private readonly int _pictureHeight;
         /// Размер парковочного места (ширина)
-        private readonly int _placeSizeWidth = 270;
+        private readonly int _placeSizeWidth = 275;
         /// Размер парковочного места (высота)
         private readonly int _placeSizeHeight = 80;
-        //кколичество бульдозеров
-        public static int indexOfPlace = 0;
+        //максимальное количество бульдозеров
+        public static int _maxCount;
         //количество ячеек парковки
         public static int widthN = 0;
         public static int heightN = 0;
-        public static int countOfHeight = 1;
-        public static int countOfWeight = 0;
-        public int NotStaticIndexOfPlace = 0;
         /// Конструктор
         public Parking(int picWidth, int picHeight)
         {
             widthN = picWidth / _placeSizeWidth;
             heightN = picHeight / _placeSizeHeight;
-            _places = new T[widthN * heightN];
+            _maxCount = widthN * heightN;
             _pictureWidth = picWidth;
             _pictureHeight = picHeight;
+            _places = new List<T>();
         }
         /// Перегрузка оператора сложения
         /// Логика действия: на парковку добавляется автомобиль
         public static bool operator +(Parking<T> p, T bulldozer)
         {
-            if (indexOfPlace < widthN * heightN)
+            if (p._places.Count < _maxCount)
             {
-                for (int i = 0; i <= indexOfPlace; i++)
-                {
-                    if (p._places[i] == null)
-                    {
-                        ParkingPlaceIsEmpty(i, p, bulldozer);
-                        return true;
-                    }
-                }
+                p._places.Add(bulldozer);
                 return true;
             }
             else
@@ -53,40 +45,30 @@ namespace WindowsFormsBulldozer
                 return false;
             }
         }
-        //добавление бульдозеров на пустые места парковки
-        public static void ParkingPlaceIsEmpty(int i, Parking<T> p, T bulldozer)
-        {
-            int countOfHeightN = 1;
-            int countOfWeightN = 0;
-            for (int j = 0; j < i; j++)
-            {
-                countOfWeightN++;
-                if (j + 1 > heightN * countOfHeightN - 1) { countOfHeightN++; countOfWeightN = 0; }
-            }
-            bulldozer.SetObject(
-          (p._placeSizeWidth * (countOfHeightN - 1)) + 19, (p._placeSizeHeight * countOfWeightN) + 7, p._placeSizeWidth, p._placeSizeHeight);
-            p._places[i] = bulldozer;
-            indexOfPlace++;
-        }
         /// Перегрузка оператора вычитания
         /// Логика действия: с парковки забираем автомобиль     
         public static T operator -(Parking<T> p, int index)
         {
-            indexOfPlace--;
-            var buldozer = p._places[index];
-            p._places[index] = null;
-            return buldozer;
+            if (index < p._places.Count)
+            {
+                var buldozer = p._places[index];
+                p._places.RemoveAt(index);
+                return buldozer;
+            }
+            else
+            {
+                return null;
+            }
         }
         /// Метод отрисовки парковки
         public void Draw(Graphics g)
         {
             DrawMarking(g);
-            for (int i = 0; i < _places.Length; i++)
+            for (int i = 0; i < _places.Count; ++i)
             {
-                if (_places[i] != null)
-                {
-                    _places[i].DrawTransport(g);
-                }
+                _places[i].SetObject(5 + i / 5 * _placeSizeWidth + 14, i % 5 * _placeSizeHeight + 15,
+                    _pictureWidth, _pictureHeight);
+                _places[i].DrawTransport(g);
             }
         }
         /// Метод отрисовки разметки парковочных мест

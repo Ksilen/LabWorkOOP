@@ -25,7 +25,6 @@ namespace WindowsFormsBulldozer
         /// Высота отрисовки автомобиля
         public readonly int _BulldozerHeight = 65;
         /// Признак, что объект переместился
-        /// </summary>
         protected bool _makeStep;
         /// Конструкторы
         public Bulldozer(int speed, float weight, Color bodyColor)
@@ -109,8 +108,7 @@ namespace WindowsFormsBulldozer
             Pen penBlack = new Pen(Color.Black, 3);
             g.DrawArc(pen, _startPosX.Value + 0, _startPosY.Value + 40, 20, 21, -270, 180);//контур гусениц
             g.DrawArc(pen, _startPosX.Value + 60, _startPosY.Value + 40, 20, 21, 270, 180);
-            g.DrawLine(pen, _startPosX.Value + 10, _startPosY.Value + 61, _startPosX.Value + 70,
-                _startPosY.Value + 61);
+            g.DrawLine(pen, _startPosX.Value + 10, _startPosY.Value + 61, _startPosX.Value + 70, _startPosY.Value + 61);
             Brush br = new SolidBrush(BodyColor);
             g.DrawEllipse(penBlack, _startPosX.Value + 3, _startPosY.Value + 43, 15, 15);//колеса гусениц
             g.DrawEllipse(penBlack, _startPosX.Value + 62, _startPosY.Value + 43, 15, 15);

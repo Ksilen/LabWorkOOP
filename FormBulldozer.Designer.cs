@@ -107,7 +107,7 @@
             this.Controls.Add(this.buttonLeft);
             this.Controls.Add(this.buttonUp);
             this.Controls.Add(this.pictureBoxForBulldozer);
-            this.MinimumSize = new System.Drawing.Size(160, 0);
+            this.MinimumSize = new System.Drawing.Size(150, 0);
             this.Name = "FormBulldozer";
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Text = "Бульдозер";

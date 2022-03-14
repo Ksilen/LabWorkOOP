@@ -8,10 +8,6 @@ namespace WindowsFormsBulldozer
         /// Цвет объекта
         Color BodyColor { get; }
         /// Установка позиции объекта
-        /// <param name="x">Координата X</param>
-        /// <param name="y">Координата Y</param>
-        /// <param name="width">Ширина полотна</param>
-        /// <param name="height">Высота полотна</param>
         void SetObject(float x, float y, int width, int height);
         /// Изменение направления пермещения объекта
         bool MoveObject(Direction direction);

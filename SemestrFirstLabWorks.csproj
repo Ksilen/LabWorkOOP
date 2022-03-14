@@ -54,6 +54,7 @@
     </Compile>
     <Compile Include="ITransport.cs" />
     <Compile Include="Parking.cs" />
+    <Compile Include="ParkingCollection.cs" />
     <Compile Include="SuperBulldozer.cs" />
     <Compile Include="FormBulldozer.cs">
       <SubType>Form</SubType>
