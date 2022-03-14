@@ -38,6 +38,9 @@
             this.buttonLeft = new System.Windows.Forms.Button();
             this.buttonDown = new System.Windows.Forms.Button();
             this.buttonRight = new System.Windows.Forms.Button();
+            this.buttonCreateModifer = new System.Windows.Forms.Button();
+            this.ButtonRunBorderTest = new System.Windows.Forms.Button();
+            this.comboBoxTest = new System.Windows.Forms.ComboBox();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxForBulldozer)).BeginInit();
             this.SuspendLayout();
@@ -81,7 +84,7 @@
             this.pictureBoxForBulldozer.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBoxForBulldozer.TabIndex = 1;
             this.pictureBoxForBulldozer.TabStop = false;
-            this.pictureBoxForBulldozer.Resize += new System.EventHandler(this.PictureBoxCars_Resize);
+            this.pictureBoxForBulldozer.Resize += new System.EventHandler(this.pictureBoxForBulldozer_Resize);
             // 
             // buttonCreate
             // 
@@ -143,11 +146,45 @@
             this.buttonRight.UseVisualStyleBackColor = true;
             this.buttonRight.Click += new System.EventHandler(this.ButtonMove_Click);
             // 
+            // buttonCreateModifer
+            // 
+            this.buttonCreateModifer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCreateModifer.Location = new System.Drawing.Point(119, 384);
+            this.buttonCreateModifer.Name = "buttonCreateModifer";
+            this.buttonCreateModifer.Size = new System.Drawing.Size(100, 30);
+            this.buttonCreateModifer.TabIndex = 7;
+            this.buttonCreateModifer.Text = "Модификация";
+            this.buttonCreateModifer.UseVisualStyleBackColor = true;
+            this.buttonCreateModifer.Click += new System.EventHandler(this.buttonCreateModifer_Click);
+            // 
+            // ButtonRunBorderTest
+            // 
+            this.ButtonRunBorderTest.Location = new System.Drawing.Point(12, 5);
+            this.ButtonRunBorderTest.Name = "ButtonRunBorderTest";
+            this.ButtonRunBorderTest.Size = new System.Drawing.Size(100, 30);
+            this.ButtonRunBorderTest.TabIndex = 8;
+            this.ButtonRunBorderTest.Text = "Провести тест";
+            this.ButtonRunBorderTest.UseVisualStyleBackColor = true;
+            this.ButtonRunBorderTest.Click += new System.EventHandler(this.ButtonRunBorderTest_Click);
+            // 
+            // comboBoxTest
+            // 
+            this.comboBoxTest.FormattingEnabled = true;
+            this.comboBoxTest.Items.AddRange(new object[] {
+            "Тест1"});
+            this.comboBoxTest.Location = new System.Drawing.Point(119, 11);
+            this.comboBoxTest.Name = "comboBoxTest";
+            this.comboBoxTest.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxTest.TabIndex = 9;
+            // 
             // FormBulldozer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(811, 439);
+            this.Controls.Add(this.comboBoxTest);
+            this.Controls.Add(this.ButtonRunBorderTest);
+            this.Controls.Add(this.buttonCreateModifer);
             this.Controls.Add(this.buttonRight);
             this.Controls.Add(this.buttonDown);
             this.Controls.Add(this.buttonLeft);
@@ -155,7 +192,7 @@
             this.Controls.Add(this.buttonCreate);
             this.Controls.Add(this.pictureBoxForBulldozer);
             this.Controls.Add(this.statusStrip1);
-            this.MinimumSize = new System.Drawing.Size(0, 130);
+            this.MinimumSize = new System.Drawing.Size(150, 150);
             this.Name = "FormBulldozer";
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Text = "Бульдозер";
@@ -179,6 +216,9 @@
         private System.Windows.Forms.Button buttonLeft;
         private System.Windows.Forms.Button buttonDown;
         private System.Windows.Forms.Button buttonRight;
+        private System.Windows.Forms.Button buttonCreateModifer;
+        private System.Windows.Forms.Button ButtonRunBorderTest;
+        private System.Windows.Forms.ComboBox comboBoxTest;
 
     }
 }
