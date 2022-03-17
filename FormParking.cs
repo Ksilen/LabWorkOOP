@@ -64,7 +64,7 @@ namespace WindowsFormsBulldozer
             if (listBoxParkings.SelectedIndex > -1)
             {
 
-                if (MessageBox.Show(String.Format("Удалить парковку {0}", listBoxParkings.SelectedItem), 
+                if (MessageBox.Show(String.Format("Удалить парковку {0}", listBoxParkings.SelectedItem),
                     "Удаление", MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question) == DialogResult.Yes)
                 {
@@ -143,5 +143,31 @@ Convert.ToInt32(maskedTextBox.Text);
         {
             Draw();
         }
+
+        private void AddBulldozer_Click(object sender, EventArgs e)
+        {
+            FormBulldozerConfig FormConfig = new FormBulldozerConfig();
+            FormConfig.AddEvent(AddCar);
+            FormConfig.ShowDialog();
+        }
+        /// Метод добавления машины
+        /// </summary>
+        /// <param name="car"></param>
+        private void AddCar(Bulldozer car)
+        {
+            if (car != null && listBoxParkings.SelectedIndex > -1)
+            {
+                if
+                ((_parkingCollection[listBoxParkings.SelectedItem.ToString()]) + car)
+                {
+                    Draw();
+                }
+                else
+                {
+                    MessageBox.Show("Машину не удалось поставить");
+                }
+            }
+        }
+
     }
 }

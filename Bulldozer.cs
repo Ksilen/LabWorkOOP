@@ -2,7 +2,7 @@
 
 namespace WindowsFormsBulldozer
 {
-    class Bulldozer : ITransport
+    public class Bulldozer : ITransport
     {
         /// Скорость
         public int Speed { private set; get; }
@@ -33,6 +33,10 @@ namespace WindowsFormsBulldozer
             Weight = weight;
             BodyColor = bodyColor;
             Step = Speed * 100 / Weight;
+        }
+        public void SetMainColor(Color color)
+        {
+            BodyColor = color;
         }
         protected Bulldozer(int speed, float weight, Color bodyColor, int BulldozerWidth, int BulldozerHeight)
         {

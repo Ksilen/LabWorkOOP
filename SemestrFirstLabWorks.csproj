@@ -46,6 +46,12 @@
   <ItemGroup>
     <Compile Include="Direction.cs" />
     <Compile Include="Bulldozer.cs" />
+    <Compile Include="FormBulldozerConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormBulldozerConfig.Designer.cs">
+      <DependentUpon>FormBulldozerConfig.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormParking.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -66,6 +72,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormBulldozer.resx">
       <DependentUpon>FormBulldozer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormBulldozerConfig.resx">
+      <DependentUpon>FormBulldozerConfig.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormParking.resx">
       <DependentUpon>FormParking.cs</DependentUpon>

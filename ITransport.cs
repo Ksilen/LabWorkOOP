@@ -15,5 +15,7 @@ namespace WindowsFormsBulldozer
         void DrawTransport(Graphics g);
         /// Смена границ формы отрисовки
         void ChangeBorders(int width, int height);
+        /// Смена основного цвета
+        void SetMainColor(Color color);
     }
 }

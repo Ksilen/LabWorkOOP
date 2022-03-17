@@ -6,6 +6,8 @@ using System.Windows.Forms;
 
 namespace WindowsFormsBulldozer
 {
+    public delegate void BulldozerDelegate(Bulldozer car);
+
     static class Program
     {
         /// The main entry point for the application.

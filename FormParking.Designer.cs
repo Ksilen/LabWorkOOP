@@ -29,9 +29,7 @@
         private void InitializeComponent()
         {
             this.pictureBoxParking = new System.Windows.Forms.PictureBox();
-            this.ButtonSetBulldozer = new System.Windows.Forms.Button();
             this.maskedTextBox = new System.Windows.Forms.MaskedTextBox();
-            this.ButtonSetSuperBulldozer = new System.Windows.Forms.Button();
             this.ButtonTakeBulldozer = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -41,6 +39,7 @@
             this.AddParking = new System.Windows.Forms.Button();
             this.textBoxNewLevelName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.AddBulldozer = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxParking)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -54,17 +53,6 @@
             this.pictureBoxParking.TabIndex = 0;
             this.pictureBoxParking.TabStop = false;
             // 
-            // ButtonSetBulldozer
-            // 
-            this.ButtonSetBulldozer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ButtonSetBulldozer.Location = new System.Drawing.Point(3, 267);
-            this.ButtonSetBulldozer.Name = "ButtonSetBulldozer";
-            this.ButtonSetBulldozer.Size = new System.Drawing.Size(120, 35);
-            this.ButtonSetBulldozer.TabIndex = 1;
-            this.ButtonSetBulldozer.Text = "Припарковать трактор";
-            this.ButtonSetBulldozer.UseVisualStyleBackColor = true;
-            this.ButtonSetBulldozer.Click += new System.EventHandler(this.ButtonSetBulldozer_Click);
-            // 
             // maskedTextBox
             // 
             this.maskedTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -73,17 +61,6 @@
             this.maskedTextBox.Name = "maskedTextBox";
             this.maskedTextBox.Size = new System.Drawing.Size(32, 20);
             this.maskedTextBox.TabIndex = 2;
-            // 
-            // ButtonSetSuperBulldozer
-            // 
-            this.ButtonSetSuperBulldozer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ButtonSetSuperBulldozer.Location = new System.Drawing.Point(3, 312);
-            this.ButtonSetSuperBulldozer.Name = "ButtonSetSuperBulldozer";
-            this.ButtonSetSuperBulldozer.Size = new System.Drawing.Size(120, 35);
-            this.ButtonSetSuperBulldozer.TabIndex = 3;
-            this.ButtonSetSuperBulldozer.Text = "Припарковать трактор с навесом";
-            this.ButtonSetSuperBulldozer.UseVisualStyleBackColor = true;
-            this.ButtonSetSuperBulldozer.Click += new System.EventHandler(this.ButtonSetSuperBulldozer_Click);
             // 
             // ButtonTakeBulldozer
             // 
@@ -108,17 +85,16 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.AddBulldozer);
             this.groupBox1.Controls.Add(this.DelParking);
             this.groupBox1.Controls.Add(this.listBoxParkings);
             this.groupBox1.Controls.Add(this.labelParkings);
             this.groupBox1.Controls.Add(this.AddParking);
             this.groupBox1.Controls.Add(this.textBoxNewLevelName);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.ButtonSetBulldozer);
             this.groupBox1.Controls.Add(this.ButtonTakeBulldozer);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.maskedTextBox);
-            this.groupBox1.Controls.Add(this.ButtonSetSuperBulldozer);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Right;
             this.groupBox1.Location = new System.Drawing.Point(704, 0);
             this.groupBox1.Name = "groupBox1";
@@ -185,6 +161,17 @@
             this.label2.TabIndex = 6;
             this.label2.Text = "Место:";
             // 
+            // AddBulldozer
+            // 
+            this.AddBulldozer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.AddBulldozer.Location = new System.Drawing.Point(7, 256);
+            this.AddBulldozer.Name = "AddBulldozer";
+            this.AddBulldozer.Size = new System.Drawing.Size(116, 42);
+            this.AddBulldozer.TabIndex = 12;
+            this.AddBulldozer.Text = "Добавить автомобиль";
+            this.AddBulldozer.UseVisualStyleBackColor = true;
+            this.AddBulldozer.Click += new System.EventHandler(this.AddBulldozer_Click);
+            // 
             // FormParking
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -205,9 +192,7 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBoxParking;
-        private System.Windows.Forms.Button ButtonSetBulldozer;
         private System.Windows.Forms.MaskedTextBox maskedTextBox;
-        private System.Windows.Forms.Button ButtonSetSuperBulldozer;
         private System.Windows.Forms.Button ButtonTakeBulldozer;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -217,5 +202,6 @@
         private System.Windows.Forms.Label labelParkings;
         private System.Windows.Forms.Button AddParking;
         private System.Windows.Forms.TextBox textBoxNewLevelName;
+        private System.Windows.Forms.Button AddBulldozer;
     }
 }
