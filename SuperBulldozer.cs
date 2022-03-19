@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 
 namespace WindowsFormsBulldozer
 {
@@ -33,6 +34,25 @@ namespace WindowsFormsBulldozer
             Flasher = flasher;
             BackBucket = backBucket;
             SportLine = sportLine;
+        }
+        /// Конструктор для загрузки с файла
+        public SuperBulldozer(string info)
+            : base(info)
+        {
+            string[] strs = info.Split(_separator);
+            if (strs.Length == 8)
+            {
+                DopColor = Color.FromName(strs[3]);
+                FrontBucket = Convert.ToBoolean(strs[4]);
+                BackBucket = Convert.ToBoolean(strs[5]);
+                Flasher = Convert.ToBoolean(strs[6]);
+                SportLine = Convert.ToBoolean(strs[7]);
+            }
+        }
+        public override string ToString()
+        {
+            String str = String.Format("{0};{1};{2};{3};{4};{5}", base.ToString(), DopColor.Name, FrontBucket, BackBucket, Flasher, SportLine);
+            return str;
         }
         public void SetDopColor(Color color)
         {

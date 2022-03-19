@@ -31,6 +31,14 @@ namespace WindowsFormsBulldozer
             _pictureHeight = picHeight;
             _places = new List<T>();
         }
+        /// Функция получения элементов из списка
+        public IEnumerable<T> GetNext()
+        {
+            foreach (var elem in _places)
+            {
+                yield return elem;
+            }
+        }
         /// Перегрузка оператора сложения
         /// Логика действия: на парковку добавляется автомобиль
         public static bool operator +(Parking<T> p, T bulldozer)

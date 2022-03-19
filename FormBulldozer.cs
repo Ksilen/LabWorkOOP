@@ -16,6 +16,7 @@ namespace WindowsFormsBulldozer
         public void SetBulldozer(ITransport bulldozer)
         {
             _bulldozer = bulldozer;
+            this.MinimumSize = new System.Drawing.Size(150 + ((int)bulldozer.Step), 0);
             Draw();
         }
         // Метод отрисовки машины

@@ -1,9 +1,12 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 
 namespace WindowsFormsBulldozer
 {
     public class Bulldozer : ITransport
     {
+        /// Разделитель для записи информации по объекту в файл
+        protected readonly char _separator = ';';
         /// Скорость
         public int Speed { private set; get; }
         /// Вес автомобиля
@@ -33,6 +36,23 @@ namespace WindowsFormsBulldozer
             Weight = weight;
             BodyColor = bodyColor;
             Step = Speed * 100 / Weight;
+        }
+        /// Конструктор для загрузки с файла
+        public Bulldozer(string info)
+        {
+            string[] strs = info.Split(_separator);
+            if (strs.Length >= 3)
+            {
+                Speed = Convert.ToInt32(strs[0]);
+                Weight = Convert.ToInt32(strs[1]);
+                BodyColor = Color.FromName(strs[2]);
+                Step = Speed * 100 / Weight;
+            }
+        }
+        public override string ToString()
+        {
+            String str = String.Format("{0};{1};{2}",Speed,Weight,BodyColor.Name);
+            return str;
         }
         public void SetMainColor(Color color)
         {
@@ -158,7 +178,3 @@ namespace WindowsFormsBulldozer
         }
     }
 }
-
-
-
-

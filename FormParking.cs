@@ -15,7 +15,7 @@ namespace WindowsFormsBulldozer
             _parkingCollection = new ParkingCollection(pictureBoxParking.Width, pictureBoxParking.Height);
         }
         /// Заполнение listBoxLevels
-        private void ReloadLevels()
+        private void ReloadLevels(ParkingCollection _parkingCollection)
         {
             int index = listBoxParkings.SelectedIndex;
             listBoxParkings.Items.Clear();
@@ -56,7 +56,7 @@ namespace WindowsFormsBulldozer
                 return;
             }
             _parkingCollection.AddParking(textBoxNewLevelName.Text);
-            ReloadLevels();
+            ReloadLevels(_parkingCollection);
         }
         /// Обработка нажатия кнопки "Удалить парковку" 
         private void DelParking_Click(object sender, EventArgs e)
@@ -69,7 +69,7 @@ namespace WindowsFormsBulldozer
                 MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     _parkingCollection.DelParking(listBoxParkings.SelectedItem.ToString());
-                    ReloadLevels();
+                    ReloadLevels(_parkingCollection);
                     if (_parkingCollection.Keys.Count == 0)
                     {
                         Bitmap bmp = new Bitmap(pictureBoxParking.Width, pictureBoxParking.Height);
@@ -151,8 +151,6 @@ Convert.ToInt32(maskedTextBox.Text);
             FormConfig.ShowDialog();
         }
         /// Метод добавления машины
-        /// </summary>
-        /// <param name="car"></param>
         private void AddCar(Bulldozer car)
         {
             if (car != null && listBoxParkings.SelectedIndex > -1)
@@ -168,6 +166,44 @@ Convert.ToInt32(maskedTextBox.Text);
                 }
             }
         }
+        /// Обработка нажатия пункта меню "Сохранить"
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                if (_parkingCollection.SaveData(saveFileDialog.FileName))
+                {
+                    MessageBox.Show("Сохранение прошло успешно",
+                    "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Не сохранилось", "Результат",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        /// Обработка нажатия пункта меню "Загрузить"
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                if (_parkingCollection.LoadData(openFileDialog.FileName))
+                {
+                    MessageBox.Show("Загрузили", "Результат",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ReloadLevels(_parkingCollection);
+                    Draw();
+                }
+                else
+                {
+                    MessageBox.Show("Не загрузили", "Результат",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
 
     }
 }
+

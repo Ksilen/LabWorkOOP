@@ -28,28 +28,38 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormParking));
             this.pictureBoxParking = new System.Windows.Forms.PictureBox();
             this.maskedTextBox = new System.Windows.Forms.MaskedTextBox();
             this.ButtonTakeBulldozer = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.AddBulldozer = new System.Windows.Forms.Button();
             this.DelParking = new System.Windows.Forms.Button();
             this.listBoxParkings = new System.Windows.Forms.ListBox();
             this.labelParkings = new System.Windows.Forms.Label();
             this.AddParking = new System.Windows.Forms.Button();
             this.textBoxNewLevelName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.AddBulldozer = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxParking)).BeginInit();
             this.groupBox1.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
+            this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
+            this.toolStripContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pictureBoxParking
             // 
-            this.pictureBoxParking.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBoxParking.Location = new System.Drawing.Point(0, 0);
+            this.pictureBoxParking.Location = new System.Drawing.Point(0, 24);
             this.pictureBoxParking.Name = "pictureBoxParking";
-            this.pictureBoxParking.Size = new System.Drawing.Size(834, 472);
+            this.pictureBoxParking.Size = new System.Drawing.Size(834, 448);
             this.pictureBoxParking.TabIndex = 0;
             this.pictureBoxParking.TabStop = false;
             // 
@@ -101,6 +111,17 @@
             this.groupBox1.Size = new System.Drawing.Size(130, 472);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
+            // 
+            // AddBulldozer
+            // 
+            this.AddBulldozer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.AddBulldozer.Location = new System.Drawing.Point(7, 256);
+            this.AddBulldozer.Name = "AddBulldozer";
+            this.AddBulldozer.Size = new System.Drawing.Size(116, 42);
+            this.AddBulldozer.TabIndex = 12;
+            this.AddBulldozer.Text = "Добавить автомобиль";
+            this.AddBulldozer.UseVisualStyleBackColor = true;
+            this.AddBulldozer.Click += new System.EventHandler(this.AddBulldozer_Click);
             // 
             // DelParking
             // 
@@ -161,30 +182,91 @@
             this.label2.TabIndex = 6;
             this.label2.Text = "Место:";
             // 
-            // AddBulldozer
+            // menuStrip1
             // 
-            this.AddBulldozer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.AddBulldozer.Location = new System.Drawing.Point(7, 256);
-            this.AddBulldozer.Name = "AddBulldozer";
-            this.AddBulldozer.Size = new System.Drawing.Size(116, 42);
-            this.AddBulldozer.TabIndex = 12;
-            this.AddBulldozer.Text = "Добавить автомобиль";
-            this.AddBulldozer.UseVisualStyleBackColor = true;
-            this.AddBulldozer.Click += new System.EventHandler(this.AddBulldozer_Click);
+            this.menuStrip1.Dock = System.Windows.Forms.DockStyle.None;
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(125, 24);
+            this.menuStrip1.TabIndex = 7;
+            this.menuStrip1.Text = "Фаил";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.saveToolStripMenuItem,
+            this.openToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.fileToolStripMenuItem.Text = "Файл";
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("saveToolStripMenuItem.Image")));
+            this.saveToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.ShowShortcutKeys = false;
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.saveToolStripMenuItem.Text = "Сохранить";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("openToolStripMenuItem.Image")));
+            this.openToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.ShowShortcutKeys = false;
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.openToolStripMenuItem.Text = "Загрузить";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            // 
+            // toolStripContainer1
+            // 
+            // 
+            // toolStripContainer1.ContentPanel
+            // 
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(125, 0);
+            this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
+            this.toolStripContainer1.Name = "toolStripContainer1";
+            this.toolStripContainer1.Size = new System.Drawing.Size(125, 21);
+            this.toolStripContainer1.TabIndex = 8;
+            this.toolStripContainer1.Text = "toolStripContainer1";
+            // 
+            // toolStripContainer1.TopToolStripPanel
+            // 
+            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.menuStrip1);
+            // 
+            // saveFileDialog
+            // 
+            this.saveFileDialog.Filter = "txt file | *.txt";
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.Filter = "txt file | *.txt";
             // 
             // FormParking
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(834, 472);
+            this.Controls.Add(this.toolStripContainer1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pictureBoxParking);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormParking";
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Text = "Стоянка";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxParking)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
+            this.toolStripContainer1.TopToolStripPanel.ResumeLayout(false);
+            this.toolStripContainer1.TopToolStripPanel.PerformLayout();
+            this.toolStripContainer1.ResumeLayout(false);
+            this.toolStripContainer1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -203,5 +285,12 @@
         private System.Windows.Forms.Button AddParking;
         private System.Windows.Forms.TextBox textBoxNewLevelName;
         private System.Windows.Forms.Button AddBulldozer;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripContainer toolStripContainer1;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
     }
 }
