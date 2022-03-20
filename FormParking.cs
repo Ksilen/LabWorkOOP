@@ -117,7 +117,7 @@ namespace WindowsFormsBulldozer
         /// Обработка нажатия кнопки "Забрать"
         private void ButtonTakeBulldozer_Click(object sender, EventArgs e)
         {
-            if (maskedTextBox.Text != "" && listBoxParkings.SelectedValue != null)
+            if (maskedTextBox.Text != "" && listBoxParkings.SelectedItem != null)
             {
                 var bulldozer = _parkingCollection[listBoxParkings.SelectedItem.ToString()] -
 Convert.ToInt32(maskedTextBox.Text);
