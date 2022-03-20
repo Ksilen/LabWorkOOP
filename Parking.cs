@@ -50,7 +50,14 @@ namespace WindowsFormsBulldozer
             }
             else
             {
-                return false;
+                try
+                {
+                    throw new ParkingOverflowException();
+                }
+                catch
+                {
+                    return false;
+                }
             }
         }
         /// Перегрузка оператора вычитания
@@ -65,7 +72,14 @@ namespace WindowsFormsBulldozer
             }
             else
             {
-                return null;
+                try
+                {
+                    throw new ParkingNotFoundException(index);
+                }
+                catch
+                {
+                    return null;
+                }
             }
         }
         /// Метод отрисовки парковки

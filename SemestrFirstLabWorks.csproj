@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MyLogger.cs" />
     <Compile Include="Direction.cs" />
     <Compile Include="Bulldozer.cs" />
     <Compile Include="FormBulldozerConfig.cs">
@@ -61,6 +62,8 @@
     <Compile Include="ITransport.cs" />
     <Compile Include="Parking.cs" />
     <Compile Include="ParkingCollection.cs" />
+    <Compile Include="ParkingNotFoundException.cs" />
+    <Compile Include="ParkingOverflowException.cs" />
     <Compile Include="SuperBulldozer.cs" />
     <Compile Include="FormBulldozer.cs">
       <SubType>Form</SubType>
@@ -100,7 +103,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Up.png" />

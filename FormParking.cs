@@ -8,11 +8,14 @@ namespace WindowsFormsBulldozer
     {
         /// Объект от класса-коллекции парковок
         private readonly ParkingCollection _parkingCollection;
+        ///логгер
+        public MyLogger logger;
         /// Конструктор
         public FormParking()
         {
             InitializeComponent();
             _parkingCollection = new ParkingCollection(pictureBoxParking.Width, pictureBoxParking.Height);
+            logger = new MyLogger();
         }
         /// Заполнение listBoxLevels
         private void ReloadLevels(ParkingCollection _parkingCollection)
@@ -55,6 +58,7 @@ namespace WindowsFormsBulldozer
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            logger.Info(String.Format("Добавили парковку {0}", textBoxNewLevelName.Text));
             _parkingCollection.AddParking(textBoxNewLevelName.Text);
             ReloadLevels(_parkingCollection);
         }
@@ -69,6 +73,7 @@ namespace WindowsFormsBulldozer
                 MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     _parkingCollection.DelParking(listBoxParkings.SelectedItem.ToString());
+                    logger.Info(String.Format("Удалили парковку {0}", listBoxParkings.SelectedItem));
                     ReloadLevels(_parkingCollection);
                     if (_parkingCollection.Keys.Count == 0)
                     {
@@ -112,7 +117,7 @@ namespace WindowsFormsBulldozer
         /// Обработка нажатия кнопки "Забрать"
         private void ButtonTakeBulldozer_Click(object sender, EventArgs e)
         {
-            if (maskedTextBox.Text != "")
+            if (maskedTextBox.Text != "" && listBoxParkings.SelectedValue != null)
             {
                 var bulldozer = _parkingCollection[listBoxParkings.SelectedItem.ToString()] -
 Convert.ToInt32(maskedTextBox.Text);
@@ -122,6 +127,11 @@ Convert.ToInt32(maskedTextBox.Text);
                     bulldozer.SetObject(17, 10, form.Width - 80, form.Height - 50);
                     form.SetBulldozer(bulldozer);
                     form.ShowDialog();
+                    logger.Info(String.Format("Изъят автомобиль {0} с места {1}", bulldozer, maskedTextBox.Text));
+                }
+                else
+                {
+                    logger.Warning("Не найден автомобиль по месту " + maskedTextBox.Text);
                 }
                 Draw();
             }
@@ -136,14 +146,16 @@ Convert.ToInt32(maskedTextBox.Text);
             else
             {
                 MessageBox.Show("Парковка переполнена");
+                logger.Warning("На парковке нет свободных мест");
             }
         }
-        /// Метод обработки выбора элемента на listBoxLevels
+        /// Метод обработки выбора элемента на listBoxLevels(выбор парковки)
         private void listBoxParkings_SelectedIndexChanged(object sender, EventArgs e)
         {
+            logger.Info(String.Format("Перешли на парковку " + listBoxParkings.SelectedItem));
             Draw();
         }
-
+        // Нажатие "Добавить автомобиль"
         private void AddBulldozer_Click(object sender, EventArgs e)
         {
             FormBulldozerConfig FormConfig = new FormBulldozerConfig();
@@ -159,6 +171,7 @@ Convert.ToInt32(maskedTextBox.Text);
                 ((_parkingCollection[listBoxParkings.SelectedItem.ToString()]) + car)
                 {
                     Draw();
+                    logger.Info("Добавлен автомобиль " + car);
                 }
                 else
                 {
@@ -175,6 +188,7 @@ Convert.ToInt32(maskedTextBox.Text);
                 {
                     MessageBox.Show("Сохранение прошло успешно",
                     "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    logger.Info("Сохранено в файл " + saveFileDialog.FileName);
                 }
                 else
                 {
@@ -192,6 +206,7 @@ Convert.ToInt32(maskedTextBox.Text);
                 {
                     MessageBox.Show("Загрузили", "Результат",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    logger.Info("Загружено из файла " + openFileDialog.FileName);
                     ReloadLevels(_parkingCollection);
                     Draw();
                 }
@@ -202,8 +217,6 @@ Convert.ToInt32(maskedTextBox.Text);
                 }
             }
         }
-
-
     }
 }
 

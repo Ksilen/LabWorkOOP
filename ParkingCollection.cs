@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace WindowsFormsBulldozer
 {
@@ -71,9 +72,9 @@ namespace WindowsFormsBulldozer
         {
             if (!File.Exists(filename))
             {
-                return false;
+                throw new Exception("Файл не найден");
             }
-            using (StreamReader fs = new StreamReader(filename))
+             using (StreamReader fs = new StreamReader(filename))
             {
                 string line = "";
                 _parkingStages.Clear();
@@ -84,13 +85,23 @@ namespace WindowsFormsBulldozer
                 {
                     if (isParking)
                     {
-                        if (!line.Contains("ParkingCollection")) //если нет такой записи, то это не те данные
+                        try
                         {
+                            if (!line.Contains("ParkingCollection")) //если нет такой записи, то это не те данные
+                            {
+                                throw new Exception("Неверный формат файла");
+                            }
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Неверный формат файла", "",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
                             return false;
                         }
                         isParking = false;
                         continue;
                     }
+
                     //идем по считанным записям
                     if (line.Contains("Parking"))
                     {
