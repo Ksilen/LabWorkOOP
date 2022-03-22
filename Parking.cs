@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace WindowsFormsBulldozer
 {
@@ -45,8 +46,15 @@ namespace WindowsFormsBulldozer
         {
             if (p._places.Count < _maxCount)
             {
-                p._places.Add(bulldozer);
-                return true;
+                if (!p._places.Contains(bulldozer))
+                {
+                    p._places.Add(bulldozer);
+                    return true;
+                }
+                else
+                {
+                    throw new ParkingAlreadyHaveException();
+                }
             }
             else
             {
@@ -108,6 +116,10 @@ namespace WindowsFormsBulldozer
                 g.DrawLine(pen, i * _placeSizeWidth, 0, i *
                 _placeSizeWidth, (_pictureHeight / _placeSizeHeight) * _placeSizeHeight);
             }
+        }
+        public void Sort()
+        {
+            _places.Sort(new CarComparer());
         }
     }
 }

@@ -8,7 +8,7 @@ namespace WindowsFormsBulldozer
     {
         /// Объект от класса-коллекции парковок
         private readonly ParkingCollection _parkingCollection;
-        ///логгер
+        ///объект для записи логов
         public MyLogger logger;
         /// Конструктор
         public FormParking()
@@ -143,11 +143,6 @@ Convert.ToInt32(maskedTextBox.Text);
             {
                 Draw();
             }
-            else
-            {
-                MessageBox.Show("Парковка переполнена");
-                logger.Warning("На парковке нет свободных мест");
-            }
         }
         /// Метод обработки выбора элемента на listBoxLevels(выбор парковки)
         private void listBoxParkings_SelectedIndexChanged(object sender, EventArgs e)
@@ -167,16 +162,30 @@ Convert.ToInt32(maskedTextBox.Text);
         {
             if (car != null && listBoxParkings.SelectedIndex > -1)
             {
-                if
-                ((_parkingCollection[listBoxParkings.SelectedItem.ToString()]) + car)
+                try
                 {
-                    Draw();
-                    logger.Info("Добавлен автомобиль " + car);
+                    if
+                    ((_parkingCollection[listBoxParkings.SelectedItem.ToString()]) + car)
+                    {
+                        Draw();
+                        logger.Info("Добавлен автомобиль " + car);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Машину не удалось поставить");
+                    }
                 }
-                else
+                catch (ParkingAlreadyHaveException ex)
                 {
-                    MessageBox.Show("Машину не удалось поставить");
+                    MessageBox.Show(ex.Message, "Дублирование",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Неизвестная ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
             }
         }
         /// Обработка нажатия пункта меню "Сохранить"
@@ -215,6 +224,19 @@ Convert.ToInt32(maskedTextBox.Text);
                     MessageBox.Show("Не загрузили", "Результат",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+        }
+        private void buttonSort_Click(object sender, EventArgs e)
+        {
+            if (listBoxParkings.SelectedIndex > -1)
+            {
+                foreach (var parking in _parkingCollection)
+                {
+                    _parkingCollection[parking.ToString()].Sort();
+                }
+                _parkingCollection.Reset();
+                Draw();
+                logger.Info("Сортировка уровней");
             }
         }
     }

@@ -4,7 +4,7 @@ using System.Drawing;
 namespace WindowsFormsBulldozer
 {
     /// Класс отрисовки бульдозера с навесом
-    public class SuperBulldozer : Bulldozer
+    public class SuperBulldozer : Bulldozer, IEquatable<SuperBulldozer>
     {
         /// Дополнительный цвет
         public Color DopColor { private set; get; }
@@ -154,6 +154,14 @@ namespace WindowsFormsBulldozer
                 g.FillRectangle(dopBrush, _startPosX.Value + 50, _startPosY.Value + 31, 20, 1);
                 g.FillRectangle(dopBrush, _startPosX.Value + 50, _startPosY.Value + 34, 20, 1);
             }
+        }
+        /// Метод интерфейса IEquatable для класса SuperBulldozer
+        public bool Equals(SuperBulldozer other)
+        {
+            // Продумать логику сравнения
+            if (this.ToString() == other.ToString())
+                return true;
+            return false;
         }
     }
 }

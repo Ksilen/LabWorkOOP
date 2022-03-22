@@ -34,6 +34,7 @@
             this.ButtonTakeBulldozer = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.buttonSort = new System.Windows.Forms.Button();
             this.AddBulldozer = new System.Windows.Forms.Button();
             this.DelParking = new System.Windows.Forms.Button();
             this.listBoxParkings = new System.Windows.Forms.ListBox();
@@ -95,6 +96,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.buttonSort);
             this.groupBox1.Controls.Add(this.AddBulldozer);
             this.groupBox1.Controls.Add(this.DelParking);
             this.groupBox1.Controls.Add(this.listBoxParkings);
@@ -112,12 +114,23 @@
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             // 
+            // buttonSort
+            // 
+            this.buttonSort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSort.Location = new System.Drawing.Point(3, 252);
+            this.buttonSort.Name = "buttonSort";
+            this.buttonSort.Size = new System.Drawing.Size(120, 25);
+            this.buttonSort.TabIndex = 13;
+            this.buttonSort.Text = "Сортировать";
+            this.buttonSort.UseVisualStyleBackColor = true;
+            this.buttonSort.Click += new System.EventHandler(this.buttonSort_Click);
+            // 
             // AddBulldozer
             // 
             this.AddBulldozer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.AddBulldozer.Location = new System.Drawing.Point(7, 256);
+            this.AddBulldozer.Location = new System.Drawing.Point(3, 286);
             this.AddBulldozer.Name = "AddBulldozer";
-            this.AddBulldozer.Size = new System.Drawing.Size(116, 42);
+            this.AddBulldozer.Size = new System.Drawing.Size(120, 42);
             this.AddBulldozer.TabIndex = 12;
             this.AddBulldozer.Text = "Добавить автомобиль";
             this.AddBulldozer.UseVisualStyleBackColor = true;
@@ -292,5 +305,6 @@
         private System.Windows.Forms.ToolStripContainer toolStripContainer1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.Button buttonSort;
     }
 }

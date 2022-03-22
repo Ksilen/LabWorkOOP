@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Windows.Forms;
 
 namespace WindowsFormsBulldozer
 {
-    class ParkingCollection
+    class ParkingCollection : IEnumerator<string>, IEnumerable<string>
     {
         /// Словарь (хранилище) с парковками
         public Dictionary<string, Parking<Bulldozer>> _parkingStages;
@@ -19,6 +20,57 @@ namespace WindowsFormsBulldozer
         private readonly int _pictureHeight;
         /// Разделитель
         protected readonly char _separator = ':';
+        /// Текущий элемент для вывода через IEnumerator (будет обращаться по своему индексу к ключу словаря,
+        /// по которму будет возвращаться запись)
+        private int _currentIndex = -1;
+        /// Возвращение списка названий парковок
+        private List<string> _keys
+        {
+            get
+            {
+                return _parkingStages.Keys.ToList();
+            }
+        }
+        /// Возвращение текущего элемента для IEnumerator
+        public string Current
+        {
+            get
+            {
+                return _keys[_currentIndex].ToString();
+            }
+        }
+        object IEnumerator.Current
+        {
+            get
+            {
+                return _keys[_currentIndex].ToString();
+            }
+        }
+        /// Метод от IDisposable (унаследован в IEnumerator). В данном случае,
+        /// логики в нем не требуется
+        public void Dispose() { }
+        /// Переход к следующему элементу
+        public bool MoveNext()
+        {
+            // Продумать логику
+            _currentIndex++;
+            if (_currentIndex < _parkingStages.Count)
+                return true;
+            return false;
+        }
+        /// Сброс при достижении конца
+        public void Reset()
+        {
+            _currentIndex = -1;
+        }
+        public System.Collections.Generic.IEnumerator<string> GetEnumerator()
+        {
+            return this;
+        }
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this;
+        }
         /// Конструктор
         public ParkingCollection(int pictureWidth, int pictureHeight)
         {
@@ -74,7 +126,7 @@ namespace WindowsFormsBulldozer
             {
                 throw new Exception("Файл не найден");
             }
-             using (StreamReader fs = new StreamReader(filename))
+            using (StreamReader fs = new StreamReader(filename))
             {
                 string line = "";
                 _parkingStages.Clear();
@@ -101,7 +153,6 @@ namespace WindowsFormsBulldozer
                         isParking = false;
                         continue;
                     }
-
                     //идем по считанным записям
                     if (line.Contains("Parking"))
                     {

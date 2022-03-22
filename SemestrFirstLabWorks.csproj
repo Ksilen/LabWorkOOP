@@ -44,6 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CarComparer.cs" />
+    <Compile Include="ParkingAlreadyHaveException.cs" />
     <Compile Include="MyLogger.cs" />
     <Compile Include="Direction.cs" />
     <Compile Include="Bulldozer.cs" />

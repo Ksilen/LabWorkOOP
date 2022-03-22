@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace WindowsFormsBulldozer
 {
-    public class Bulldozer : ITransport
+    public class Bulldozer : ITransport, IEquatable<Bulldozer>
     {
         /// Разделитель для записи информации по объекту в файл
         protected readonly char _separator = ';';
@@ -51,7 +52,7 @@ namespace WindowsFormsBulldozer
         }
         public override string ToString()
         {
-            String str = String.Format("{0};{1};{2}",Speed,Weight,BodyColor.Name);
+            String str = String.Format("{0};{1};{2}", Speed, Weight, BodyColor.Name);
             return str;
         }
         public void SetMainColor(Color color)
@@ -175,6 +176,14 @@ namespace WindowsFormsBulldozer
             {
                 _startPosY = height - _BulldozerHeight;
             }
+        }
+        /// Метод интерфейса IEquatable для класса Bulldozer
+        public bool Equals(Bulldozer other)
+        {
+            // Продумать логику сравнения
+            if (this.ToString() == other.ToString())
+                return true;
+            return false;
         }
     }
 }

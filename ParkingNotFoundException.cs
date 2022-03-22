@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Windows.Forms;
+
 namespace WindowsFormsBulldozer
-{/// Класс-ошибка "Если не найден автомобиль по определенному месту"
-    class ParkingNotFoundException : Exception
+{
+    /// Класс-ошибка "Если не найден автомобиль по определенному месту"
+    public class ParkingNotFoundException : Exception
     {
         public ParkingNotFoundException(int i)
-            : base("Не найден автомобиль по месту")
+            : base("Не найден автомобиль по месту "+i)
         {
-            MessageBox.Show(base.Message + " " + i, "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(base.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
