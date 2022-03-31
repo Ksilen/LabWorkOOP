@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormBulldozerConfig));
             this.label1 = new System.Windows.Forms.Label();
             this.SimpleBulldozer = new System.Windows.Forms.Label();
             this.labelSuperBulldozer = new System.Windows.Forms.Label();
@@ -313,7 +314,7 @@
             // 
             // panel3
             // 
-            this.panel3.BackColor = System.Drawing.Color.YellowGreen;
+            this.panel3.BackColor = System.Drawing.Color.Lime;
             this.panel3.Location = new System.Drawing.Point(370, 87);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(38, 39);
@@ -331,7 +332,7 @@
             // 
             // panel5
             // 
-            this.panel5.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panel5.BackColor = System.Drawing.Color.Teal;
             this.panel5.Location = new System.Drawing.Point(307, 145);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(38, 39);
@@ -340,7 +341,7 @@
             // 
             // panel6
             // 
-            this.panel6.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.panel6.BackColor = System.Drawing.Color.Coral;
             this.panel6.Location = new System.Drawing.Point(502, 145);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(38, 39);
@@ -349,7 +350,7 @@
             // 
             // panel7
             // 
-            this.panel7.BackColor = System.Drawing.Color.DarkOliveGreen;
+            this.panel7.BackColor = System.Drawing.Color.Orange;
             this.panel7.Location = new System.Drawing.Point(439, 145);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(38, 39);
@@ -419,6 +420,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pictureBoxBulldozer);
             this.Controls.Add(this.groupBox2);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormBulldozerConfig";
             this.Text = "FormClassConfig";
             ((System.ComponentModel.ISupportInitialize)(this.numeriсMaxSpeed)).EndInit();

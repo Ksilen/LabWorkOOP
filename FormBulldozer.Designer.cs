@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormBulldozer));
             this.pictureBoxForBulldozer = new System.Windows.Forms.PictureBox();
             this.buttonUp = new System.Windows.Forms.Button();
             this.buttonLeft = new System.Windows.Forms.Button();
@@ -107,7 +108,8 @@
             this.Controls.Add(this.buttonLeft);
             this.Controls.Add(this.buttonUp);
             this.Controls.Add(this.pictureBoxForBulldozer);
-            this.MinimumSize = new System.Drawing.Size(150, 0);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(150, 39);
             this.Name = "FormBulldozer";
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Text = "Бульдозер";

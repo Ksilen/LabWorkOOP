@@ -10,12 +10,20 @@ namespace WindowsFormsBulldozer
         private readonly ParkingCollection _parkingCollection;
         ///объект для записи логов
         public MyLogger logger;
+        //объект базы данных
+        DataBase dateBaseParking;
+        //Использовать БД
+        public static bool ActiveBD = false;
         /// Конструктор
         public FormParking()
         {
             InitializeComponent();
             _parkingCollection = new ParkingCollection(pictureBoxParking.Width, pictureBoxParking.Height);
             logger = new MyLogger();
+            dateBaseParking = new DataBase();
+            if (!dateBaseParking.IsOpen())
+                dateBaseParking.OpenConnection();
+            WorkWithBD.PerformClick();
         }
         /// Заполнение listBoxLevels
         private void ReloadLevels(ParkingCollection _parkingCollection)
@@ -60,6 +68,7 @@ namespace WindowsFormsBulldozer
             }
             logger.Info(String.Format("Добавили парковку {0}", textBoxNewLevelName.Text));
             _parkingCollection.AddParking(textBoxNewLevelName.Text);
+            if (ActiveBD) dateBaseParking.setParking(textBoxNewLevelName.Text);
             ReloadLevels(_parkingCollection);
         }
         /// Обработка нажатия кнопки "Удалить парковку" 
@@ -67,12 +76,12 @@ namespace WindowsFormsBulldozer
         {
             if (listBoxParkings.SelectedIndex > -1)
             {
-
                 if (MessageBox.Show(String.Format("Удалить парковку {0}", listBoxParkings.SelectedItem),
                     "Удаление", MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     _parkingCollection.DelParking(listBoxParkings.SelectedItem.ToString());
+                    if (ActiveBD) dateBaseParking.deleteParking(listBoxParkings.SelectedItem.ToString());
                     logger.Info(String.Format("Удалили парковку {0}", listBoxParkings.SelectedItem));
                     ReloadLevels(_parkingCollection);
                     if (_parkingCollection.Keys.Count == 0)
@@ -117,7 +126,7 @@ namespace WindowsFormsBulldozer
         /// Обработка нажатия кнопки "Забрать"
         private void ButtonTakeBulldozer_Click(object sender, EventArgs e)
         {
-            if (maskedTextBox.Text != "" && listBoxParkings.SelectedValue != null)
+            if (maskedTextBox.Text != "" && listBoxParkings.SelectedItem != null)
             {
                 var bulldozer = _parkingCollection[listBoxParkings.SelectedItem.ToString()] -
 Convert.ToInt32(maskedTextBox.Text);
@@ -127,6 +136,8 @@ Convert.ToInt32(maskedTextBox.Text);
                     bulldozer.SetObject(17, 10, form.Width - 80, form.Height - 50);
                     form.SetBulldozer(bulldozer);
                     form.ShowDialog();
+                    if (ActiveBD)
+                        dateBaseParking.deleteBulldozer(listBoxParkings.SelectedItem.ToString(), bulldozer.ToString(), maskedTextBox.Text);
                     logger.Info(String.Format("Изъят автомобиль {0} с места {1}", bulldozer, maskedTextBox.Text));
                 }
                 else
@@ -169,6 +180,8 @@ Convert.ToInt32(maskedTextBox.Text);
                     {
                         Draw();
                         logger.Info("Добавлен автомобиль " + car);
+                        if (FormParking.ActiveBD) dateBaseParking.setBulldozer(car.ToString(), listBoxParkings.SelectedItem.ToString());
+                        ValueSelectedParking.SelectedParking = listBoxParkings.SelectedItem.ToString();
                     }
                     else
                     {
@@ -188,8 +201,51 @@ Convert.ToInt32(maskedTextBox.Text);
 
             }
         }
+        private void buttonSort_Click(object sender, EventArgs e)
+        {
+            if (listBoxParkings.SelectedIndex > -1)
+            {
+                foreach (var parking in _parkingCollection)
+                {
+                    _parkingCollection[parking.ToString()].Sort();
+                }
+                _parkingCollection.Reset();
+                Draw();
+                logger.Info("Сортировка уровней");
+            }
+        }
+        //Меню Включить работу с Базой Данных
+        private void WorkWithBD_Click(object sender, EventArgs e)
+        {
+            if (!ActiveBD)
+            {
+                this.WorkWithBD.Text = "Выкл. работу с БД";
+                ActiveBD = true;  // Включает добавление, удаление записей в БД
+                dateBaseParking.NewDataBase(); //Если БД пуста создать 5 парковок
+                dateBaseParking.loadFromDB();
+                _parkingCollection.LoadData("tempDataBase.txt");
+                ReloadLevels(_parkingCollection);
+                Draw();
+            }
+            else
+            {
+                this.WorkWithBD.Text = "Вкл. работу с БД";
+                ActiveBD = false;
+            }
+        }
+        public void reloadPark()
+        {
+            WorkWithBD.PerformClick();
+            WorkWithBD.PerformClick();
+        }
+        //Меню Сформировать отчет
+        private void Report_Click(object sender, EventArgs e)
+        {
+            DataBaseForm DBForm = new DataBaseForm(new MyDelegate(reloadPark));
+            DBForm.ShowDialog();
+        }
         /// Обработка нажатия пункта меню "Сохранить"
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
@@ -207,7 +263,7 @@ Convert.ToInt32(maskedTextBox.Text);
             }
         }
         /// Обработка нажатия пункта меню "Загрузить"
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
         {
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
@@ -226,18 +282,10 @@ Convert.ToInt32(maskedTextBox.Text);
                 }
             }
         }
-        private void buttonSort_Click(object sender, EventArgs e)
+
+        private void button1_Click(object sender, EventArgs e)
         {
-            if (listBoxParkings.SelectedIndex > -1)
-            {
-                foreach (var parking in _parkingCollection)
-                {
-                    _parkingCollection[parking.ToString()].Sort();
-                }
-                _parkingCollection.Reset();
-                Draw();
-                logger.Info("Сортировка уровней");
-            }
+            dateBaseParking.DeleteAllFromBD();
         }
     }
 }

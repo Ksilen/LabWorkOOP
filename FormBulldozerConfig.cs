@@ -10,10 +10,15 @@ namespace WindowsFormsBulldozer
         Bulldozer _car = null;
         /// Событие
         private event BulldozerDelegate EventAddCar;
+        //Объект базы данных
+        DataBase dateBaseBulldozer;
         /// Конструктор
         public FormBulldozerConfig()
         {
             InitializeComponent();
+            dateBaseBulldozer = new DataBase();
+            if (!dateBaseBulldozer.IsOpen())
+                dateBaseBulldozer.OpenConnection();
         }
         /// Отрисовать машину
         private void DrawCar()
@@ -119,10 +124,11 @@ namespace WindowsFormsBulldozer
         private void buttonAddCarFromConfig_Click(object sender, EventArgs e)
         {
             if (EventAddCar != null)
+            {
                 EventAddCar.Invoke(_car);
+                string ParkingNow = ValueSelectedParking.SelectedParking.ToString();
+            }
             Close();
         }
-
-
     }
 }

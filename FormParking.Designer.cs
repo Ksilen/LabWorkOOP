@@ -43,9 +43,12 @@
             this.textBoxNewLevelName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.BD = new System.Windows.Forms.ToolStripMenuItem();
+            this.WorkWithBD = new System.Windows.Forms.ToolStripMenuItem();
+            this.Report = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
@@ -199,41 +202,65 @@
             // 
             this.menuStrip1.Dock = System.Windows.Forms.DockStyle.None;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.toolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(125, 24);
             this.menuStrip1.TabIndex = 7;
             this.menuStrip1.Text = "Фаил";
             // 
-            // fileToolStripMenuItem
+            // toolStripMenuItem1
             // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.saveToolStripMenuItem,
-            this.openToolStripMenuItem});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
-            this.fileToolStripMenuItem.Text = "Файл";
+            this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem2,
+            this.toolStripMenuItem3,
+            this.BD});
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(48, 20);
+            this.toolStripMenuItem1.Text = "Файл";
             // 
-            // saveToolStripMenuItem
+            // toolStripMenuItem2
             // 
-            this.saveToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("saveToolStripMenuItem.Image")));
-            this.saveToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.ShowShortcutKeys = false;
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
-            this.saveToolStripMenuItem.Text = "Сохранить";
-            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            this.toolStripMenuItem2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem2.Image")));
+            this.toolStripMenuItem2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.ShowShortcutKeys = false;
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(143, 22);
+            this.toolStripMenuItem2.Text = "Сохранить";
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
-            // openToolStripMenuItem
+            // toolStripMenuItem3
             // 
-            this.openToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("openToolStripMenuItem.Image")));
-            this.openToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.ShowShortcutKeys = false;
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
-            this.openToolStripMenuItem.Text = "Загрузить";
-            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            this.toolStripMenuItem3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem3.Image")));
+            this.toolStripMenuItem3.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.ShowShortcutKeys = false;
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(143, 22);
+            this.toolStripMenuItem3.Text = "Загрузить";
+            this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
+            // 
+            // BD
+            // 
+            this.BD.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.WorkWithBD,
+            this.Report});
+            this.BD.Name = "BD";
+            this.BD.Size = new System.Drawing.Size(143, 22);
+            this.BD.Text = "База Данных";
+            // 
+            // WorkWithBD
+            // 
+            this.WorkWithBD.Name = "WorkWithBD";
+            this.WorkWithBD.Size = new System.Drawing.Size(191, 22);
+            this.WorkWithBD.Text = "Вкл.  работу с БД";
+            this.WorkWithBD.Click += new System.EventHandler(this.WorkWithBD_Click);
+            // 
+            // Report
+            // 
+            this.Report.Name = "Report";
+            this.Report.Size = new System.Drawing.Size(191, 22);
+            this.Report.Text = "Сформировать отчет";
+            this.Report.Click += new System.EventHandler(this.Report_Click);
             // 
             // toolStripContainer1
             // 
@@ -267,6 +294,7 @@
             this.Controls.Add(this.toolStripContainer1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pictureBoxParking);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormParking";
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -299,12 +327,15 @@
         private System.Windows.Forms.TextBox textBoxNewLevelName;
         private System.Windows.Forms.Button AddBulldozer;
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripContainer toolStripContainer1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.Button buttonSort;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem BD;
+        private System.Windows.Forms.ToolStripMenuItem WorkWithBD;
+        private System.Windows.Forms.ToolStripMenuItem Report;
     }
 }

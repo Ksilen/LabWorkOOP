@@ -2,7 +2,7 @@
 
 namespace WindowsFormsBulldozer
 {
-    public class CarComparer : IComparer<ITransport>
+    public class CarComparer : IComparer<ITransport>   //Сравнение машин для Sort
     {
         public int Compare(ITransport x, ITransport y)
         {
