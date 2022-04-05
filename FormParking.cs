@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-
+using log4net;
+using log4net.Config;
 namespace WindowsFormsBulldozer
 {
     public partial class FormParking : Form
     {
         /// Объект от класса-коллекции парковок
         private readonly ParkingCollection _parkingCollection;
-        ///объект для записи логов
-        public MyLogger logger;
         //объект базы данных
         DataBase dateBaseParking;
         //Использовать БД
@@ -18,8 +17,8 @@ namespace WindowsFormsBulldozer
         public FormParking()
         {
             InitializeComponent();
+            Logger.InitLogger();
             _parkingCollection = new ParkingCollection(pictureBoxParking.Width, pictureBoxParking.Height);
-            logger = new MyLogger();
             dateBaseParking = new DataBase();
             if (!dateBaseParking.IsOpen())
                 dateBaseParking.OpenConnection();
@@ -66,7 +65,7 @@ namespace WindowsFormsBulldozer
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            logger.Info(String.Format("Добавили парковку {0}", textBoxNewLevelName.Text));
+            Logger.Log.Info(String.Format("Добавили парковку {0}", textBoxNewLevelName.Text));
             _parkingCollection.AddParking(textBoxNewLevelName.Text);
             if (ActiveBD) dateBaseParking.setParking(textBoxNewLevelName.Text);
             ReloadLevels(_parkingCollection);
@@ -82,7 +81,7 @@ namespace WindowsFormsBulldozer
                 {
                     _parkingCollection.DelParking(listBoxParkings.SelectedItem.ToString());
                     if (ActiveBD) dateBaseParking.deleteParking(listBoxParkings.SelectedItem.ToString());
-                    logger.Info(String.Format("Удалили парковку {0}", listBoxParkings.SelectedItem));
+                    Logger.Log.Info(String.Format("Удалили парковку {0}", listBoxParkings.SelectedItem));
                     ReloadLevels(_parkingCollection);
                     if (_parkingCollection.Keys.Count == 0)
                     {
@@ -138,11 +137,12 @@ Convert.ToInt32(maskedTextBox.Text);
                     form.ShowDialog();
                     if (ActiveBD)
                         dateBaseParking.deleteBulldozer(listBoxParkings.SelectedItem.ToString(), bulldozer.ToString(), maskedTextBox.Text);
-                    logger.Info(String.Format("Изъят автомобиль {0} с места {1}", bulldozer, maskedTextBox.Text));
+                    Logger.Log.Info(String.Format("Изъят автомобиль {0} с места {1}", bulldozer, maskedTextBox.Text));
                 }
                 else
                 {
-                    logger.Warning("Не найден автомобиль по месту " + maskedTextBox.Text);
+                    Logger.Log.Error(String.Format("Не найден автомобиль по месту " + maskedTextBox.Text));
+
                 }
                 Draw();
             }
@@ -158,7 +158,7 @@ Convert.ToInt32(maskedTextBox.Text);
         /// Метод обработки выбора элемента на listBoxLevels(выбор парковки)
         private void listBoxParkings_SelectedIndexChanged(object sender, EventArgs e)
         {
-            logger.Info(String.Format("Перешли на парковку " + listBoxParkings.SelectedItem));
+            Logger.Log.Info(String.Format("Перешли на парковку " + listBoxParkings.SelectedItem));
             Draw();
         }
         // Нажатие "Добавить автомобиль"
@@ -179,13 +179,14 @@ Convert.ToInt32(maskedTextBox.Text);
                     ((_parkingCollection[listBoxParkings.SelectedItem.ToString()]) + car)
                     {
                         Draw();
-                        logger.Info("Добавлен автомобиль " + car);
+                        Logger.Log.Info(String.Format("Добавлен автомобиль {0}", car));
                         if (FormParking.ActiveBD) dateBaseParking.setBulldozer(car.ToString(), listBoxParkings.SelectedItem.ToString());
                         ValueSelectedParking.SelectedParking = listBoxParkings.SelectedItem.ToString();
                     }
                     else
                     {
                         MessageBox.Show("Машину не удалось поставить");
+                        Logger.Log.Error(String.Format("Парковка {0} переполнена. Машину не удалось поставить.",listBoxParkings.SelectedItem.ToString()));
                     }
                 }
                 catch (ParkingAlreadyHaveException ex)
@@ -211,7 +212,7 @@ Convert.ToInt32(maskedTextBox.Text);
                 }
                 _parkingCollection.Reset();
                 Draw();
-                logger.Info("Сортировка уровней");
+                Logger.Log.Info("Сортировка уровней");
             }
         }
         //Меню Включить работу с Базой Данных
@@ -253,7 +254,7 @@ Convert.ToInt32(maskedTextBox.Text);
                 {
                     MessageBox.Show("Сохранение прошло успешно",
                     "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    logger.Info("Сохранено в файл " + saveFileDialog.FileName);
+                    Logger.Log.Info("Сохранено в файл " + saveFileDialog.FileName);
                 }
                 else
                 {
@@ -271,7 +272,7 @@ Convert.ToInt32(maskedTextBox.Text);
                 {
                     MessageBox.Show("Загрузили", "Результат",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    logger.Info("Загружено из файла " + openFileDialog.FileName);
+                    Logger.Log.Info("Загружено из файла " + openFileDialog.FileName);
                     ReloadLevels(_parkingCollection);
                     Draw();
                 }
